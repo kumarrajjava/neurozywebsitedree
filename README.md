@@ -37,27 +37,23 @@ npm run build
 
 The production frontend output is generated in `client/dist/`.
 
-## Deploy to GitHub Pages
+## Deploy to Vercel
 
-The GitHub Actions workflow builds the client and deploys it to the project
-Pages site whenever changes are pushed to `main`. The repository name is used
-as the production asset base path, so bundled scripts, styles, and public
-assets load correctly from the GitHub Pages project URL.
+The repository is configured to deploy on Vercel when changes are pushed to
+the connected Git branch. `vercel.json` sets the project root build command
+and points Vercel at the client's production output in `client/dist`.
 
-Before the first deployment, enable Pages in the repository's **Settings →
-Pages** and set **Build and deployment → Source** to **GitHub Actions**. The
-workflow deploys to the configured Pages site on each push to `main`. After a
-successful deployment, open the Pages URL shown in **Settings → Pages** or in
-the workflow deployment summary.
+In Vercel, set the project's **Root Directory** to the repository root and use
+the **Production** deployment environment for the `main` branch. Vercel will
+install dependencies with `npm ci`, run the TypeScript check and production
+build, and serve the single-page app with its client-side route fallback.
 
-To reproduce the Pages production build locally in PowerShell:
+Verify the same production build locally with:
 
-```powershell
-$env:VITE_BASE_PATH = "/neurozywebsitedree/"
+```bash
+npm run lint
 npm run build
 npm run preview
 ```
 
-Open `http://localhost:4173/neurozywebsitedree/` to verify the production
-build. Clear the override in the current PowerShell session with
-`Remove-Item Env:VITE_BASE_PATH` when you are done.
+Open `http://localhost:4173/` to check the built client.
