@@ -12,10 +12,12 @@ import { BusinessData, User, AppViewMode } from './types';
 import { extractBusinessFromTranscript, SAMPLE_VOICE_PRESETS } from './services/businessExtractor';
 
 export function App() {
-  // Navigation View State with persistence so user is NEVER bounced back unexpectedly
+  // Navigation View State — landing page always shows fresh on load,
+  // but dashboard/profile persist so user is not bounced out unexpectedly
   const [currentView, setCurrentViewState] = useState<AppViewMode>(() => {
     const saved = localStorage.getItem('neurozy_active_view') as AppViewMode;
-    if (saved && ['landing', 'dashboard', 'profile', 'editor', 'published-site'].includes(saved)) {
+    // Only persist dashboard and profile across reloads; always start fresh for editor/published-site
+    if (saved && ['dashboard', 'profile'].includes(saved)) {
       return saved;
     }
     return 'landing';
