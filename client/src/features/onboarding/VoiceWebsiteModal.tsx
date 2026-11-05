@@ -106,8 +106,8 @@ export const VoiceWebsiteModal: React.FC<VoiceWebsiteModalProps> = ({
           {/* Modal Header */}
           <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-gradient-to-r from-slate-50 to-white">
             <div className="flex items-center gap-3">
-              <img src="/neurozy-logo.png" alt="Neurozy Logo" className="h-8 w-auto object-contain mix-blend-multiply" />
-              <div className="border-l border-slate-200 pl-3">
+              <img src="/neurozy-logo.png" alt="Neurozy Logo" className="h-10 w-auto object-contain mix-blend-multiply" />
+              <div className="border-l-2 border-slate-200 pl-3">
                 <h3 className="font-extrabold text-slate-900 text-sm leading-tight">
                   Voice-to-Website Builder
                 </h3>

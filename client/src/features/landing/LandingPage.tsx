@@ -77,10 +77,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             <div className="lg:col-span-6 space-y-6 text-center lg:text-left">
               
               {/* Brand Logo & Voice-to-Website Builder Pill */}
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
-                <img src="/neurozy-logo.png" alt="Neurozy Logo" className="h-10 sm:h-11 w-auto object-contain mix-blend-multiply drop-shadow-xs" />
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E0E7FF] text-[#4F46E5] text-xs font-bold shadow-xs">
-                  <Mic className="w-3.5 h-3.5 text-[#6366F1] animate-pulse" />
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                <img src="/neurozy-logo.png" alt="Neurozy Logo" className="h-12 sm:h-14 w-auto object-contain mix-blend-multiply drop-shadow-sm" />
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E0E7FF] text-[#4F46E5] text-xs font-extrabold shadow-sm">
+                  <Mic className="w-4 h-4 text-[#6366F1] animate-pulse" />
                   <span>Voice-to-Website Builder</span>
                 </div>
               </div>

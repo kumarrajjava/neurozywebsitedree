@@ -18,11 +18,11 @@ export const Footer: React.FC = () => {
           {/* Brand Col */}
           <div className="space-y-4 md:col-span-1">
             <div className="flex items-center gap-3">
-              <div className="bg-white p-1.5 px-3 rounded-2xl shadow-md">
-                <img src="/neurozy-logo.png" alt="Neurozy Logo" className="h-8 w-auto object-contain" />
+              <div className="bg-white p-2 px-4 rounded-2xl shadow-md">
+                <img src="/neurozy-logo.png" alt="Neurozy Logo" className="h-10 w-auto object-contain" />
               </div>
               <div>
-                <span className="text-[10px] font-extrabold text-indigo-400 uppercase tracking-widest block">From Idea to Code.</span>
+                <span className="text-[11px] font-extrabold text-indigo-400 uppercase tracking-widest block">From Idea to Code.</span>
               </div>
             </div>
             <p className="text-sm text-slate-400 leading-relaxed">
