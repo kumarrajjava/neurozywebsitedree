@@ -3,6 +3,9 @@ build/
 dist/
 coverage/
 .DS_Store
+.idea/
+target/
+*.class
 *.log
 .env*
 !.env.example

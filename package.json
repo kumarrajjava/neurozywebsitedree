@@ -1,14 +1,17 @@
 {
-  "name": "react-example",
+  "name": "neurozy-voice-to-website",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "workspaces": [
+    "client"
+  ],
   "scripts": {
-    "dev": "vite --port=3000 --host=0.0.0.0",
-    "build": "vite build",
-    "preview": "vite preview",
-    "clean": "rm -rf dist server.js",
-    "lint": "tsc --noEmit"
+    "dev": "npm run dev --workspace neurozy-voice-to-website-client -- --host 0.0.0.0 --port 3000 --strictPort",
+    "build": "npm run build --workspace neurozy-voice-to-website-client",
+    "preview": "npm run preview --workspace neurozy-voice-to-website-client -- --host 0.0.0.0 --port 4173 --strictPort",
+    "clean": "node -e \"const fs=require('node:fs'); for (const p of ['dist','client/dist','server.js']) fs.rmSync(p,{recursive:true,force:true})\"",
+    "lint": "npm run lint --workspace neurozy-voice-to-website-client"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
@@ -27,7 +30,7 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "autoprefixer": "^10.4.21",
-    "esbuild": "^0.25.0",
+    "esbuild": "^0.28.0",
     "tailwindcss": "^4.3.3",
     "tsx": "^4.21.0",
     "typescript": "^7.0.2",
