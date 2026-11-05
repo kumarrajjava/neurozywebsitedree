@@ -64,6 +64,8 @@ export interface WebsiteTemplate {
 
 export type ViewportMode = 'desktop' | 'mobile';
 
+export type AppViewMode = 'landing' | 'dashboard' | 'profile' | 'editor' | 'published-site';
+
 export interface User {
   id: string;
   fullName: string;

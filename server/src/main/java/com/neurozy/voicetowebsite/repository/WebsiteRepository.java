@@ -12,3 +12,4 @@ public interface WebsiteRepository extends JpaRepository<Website, String> {
     Optional<Website> findByBusinessId(String businessId);
     boolean existsBySubdomain(String subdomain);
 }
+

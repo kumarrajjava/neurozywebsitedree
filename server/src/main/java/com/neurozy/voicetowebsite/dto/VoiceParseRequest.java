@@ -17,3 +17,4 @@ public class VoiceParseRequest {
     public String getInputLanguage() { return inputLanguage; }
     public void setInputLanguage(String inputLanguage) { this.inputLanguage = inputLanguage; }
 }
+

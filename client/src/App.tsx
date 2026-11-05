@@ -6,20 +6,47 @@ import { VoiceWebsiteModal } from './features/onboarding/VoiceWebsiteModal';
 import { LiveEditor } from './features/editor/LiveEditor';
 import { DashboardView } from './features/dashboard/DashboardView';
 import { PublishedSiteView } from './features/public/PublishedSiteView';
+import { ProfileView } from './features/profile/ProfileView';
 import { AuthModal } from './features/auth/AuthModal';
-import { BusinessData, User } from './types';
+import { BusinessData, User, AppViewMode } from './types';
 import { extractBusinessFromTranscript, SAMPLE_VOICE_PRESETS } from './services/businessExtractor';
 
 export function App() {
-  // Navigation View State
-  const [currentView, setCurrentView] = useState<'landing' | 'dashboard' | 'editor' | 'published-site'>('landing');
+  // Navigation View State with persistence so user is NEVER bounced back unexpectedly
+  const [currentView, setCurrentViewState] = useState<AppViewMode>(() => {
+    const saved = localStorage.getItem('neurozy_active_view') as AppViewMode;
+    if (saved && ['landing', 'dashboard', 'profile', 'editor', 'published-site'].includes(saved)) {
+      return saved;
+    }
+    return 'landing';
+  });
+
+  const setCurrentView = (view: AppViewMode) => {
+    setCurrentViewState(view);
+    localStorage.setItem('neurozy_active_view', view);
+  };
   
   // Modals
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
-  // Authenticated User
-  const [user, setUser] = useState<User | null>(null);
+  // Authenticated User with persistence
+  const [user, setUser] = useState<User | null>(() => {
+    const savedUser = localStorage.getItem('neurozy_user');
+    if (savedUser) {
+      try {
+        return JSON.parse(savedUser);
+      } catch (_) {}
+    }
+    // Default demo user so profile is immediately active for testing
+    return {
+      id: 'usr_lucknow_founder',
+      fullName: 'Rajesh Kumar',
+      email: 'rajesh@sweetbites.com',
+      phoneNumber: '9876543210',
+      planTier: 'STARTER'
+    };
+  });
 
   // Active Business Data (Seeded initially with the Hazratganj Sweet Bites bakery from the design artwork)
   const [businessData, setBusinessData] = useState<BusinessData>(() => {
@@ -29,24 +56,26 @@ export function App() {
         return JSON.parse(saved);
       } catch (_) {}
     }
-    // Default matching reference graphic
     return extractBusinessFromTranscript(SAMPLE_VOICE_PRESETS[0].transcript);
   });
-
-  // Load user from localStorage
-  useEffect(() => {
-    const savedUser = localStorage.getItem('neurozy_user');
-    if (savedUser) {
-      try {
-        setUser(JSON.parse(savedUser));
-      } catch (_) {}
-    }
-  }, []);
 
   // Save business changes
   const handleUpdateBusiness = (updated: BusinessData) => {
     setBusinessData(updated);
     localStorage.setItem('neurozy_active_business', JSON.stringify(updated));
+  };
+
+  // Save user changes
+  const handleUpdateUser = (updatedUser: User) => {
+    setUser(updatedUser);
+    localStorage.setItem('neurozy_user', JSON.stringify(updatedUser));
+  };
+
+  // Logout handler
+  const handleLogout = () => {
+    localStorage.removeItem('neurozy_user');
+    setUser(null);
+    setCurrentView('landing');
   };
 
   // Callback when voice generation finishes
@@ -66,14 +95,19 @@ export function App() {
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex flex-col font-sans">
       
-      {/* Navbar rendered on Landing and Dashboard views */}
-      {(currentView === 'landing' || currentView === 'dashboard') && (
+      {/* Top Navbar rendered on Landing, Dashboard, and Profile views */}
+      {(currentView === 'landing' || currentView === 'dashboard' || currentView === 'profile') && (
         <Navbar
+          currentView={currentView}
           user={user}
           onNavigateHome={() => setCurrentView('landing')}
-          onOpenDashboard={() => setCurrentView('dashboard')}
+          onNavigateDashboard={() => setCurrentView('dashboard')}
+          onNavigateProfile={() => setCurrentView('profile')}
+          onNavigateEditor={() => setCurrentView('editor')}
+          onNavigateLiveSite={() => setCurrentView('published-site')}
           onOpenCreateModal={() => setIsCreateModalOpen(true)}
           onOpenAuthModal={() => setIsAuthModalOpen(true)}
+          onLogout={handleLogout}
         />
       )}
 
@@ -93,6 +127,19 @@ export function App() {
             onOpenEditor={() => setCurrentView('editor')}
             onOpenCreateModal={() => setIsCreateModalOpen(true)}
             onViewPublishedSite={() => setCurrentView('published-site')}
+            onNavigateProfile={() => setCurrentView('profile')}
+          />
+        )}
+
+        {currentView === 'profile' && (
+          <ProfileView
+            user={user}
+            businessData={businessData}
+            onUpdateUser={handleUpdateUser}
+            onUpdateBusiness={handleUpdateBusiness}
+            onNavigateDashboard={() => setCurrentView('dashboard')}
+            onNavigateEditor={() => setCurrentView('editor')}
+            onLogout={handleLogout}
           />
         )}
 
@@ -102,6 +149,7 @@ export function App() {
             onUpdateBusiness={handleUpdateBusiness}
             onBackToDashboard={() => setCurrentView('dashboard')}
             onViewPublishedSite={() => setCurrentView('published-site')}
+            onNavigateProfile={() => setCurrentView('profile')}
           />
         )}
 
@@ -109,6 +157,8 @@ export function App() {
           <PublishedSiteView
             businessData={businessData}
             onBackToEditor={() => setCurrentView('editor')}
+            onBackToDashboard={() => setCurrentView('dashboard')}
+            onNavigateProfile={() => setCurrentView('profile')}
           />
         )}
       </main>
@@ -129,6 +179,7 @@ export function App() {
         onClose={() => setIsAuthModalOpen(false)}
         onLoginSuccess={(loggedInUser) => {
           setUser(loggedInUser);
+          setCurrentView('dashboard');
         }}
       />
 

@@ -1,16 +1,20 @@
 import React from 'react';
-import { ArrowLeft, Share2, ExternalLink, Sparkles } from 'lucide-react';
+import { ArrowLeft, Share2, User as UserIcon, LayoutDashboard, Edit3 } from 'lucide-react';
 import { BusinessData } from '../../types';
 import { WebsiteViewRenderer } from '../../templates/WebsiteViewRenderer';
 
 interface PublishedSiteViewProps {
   businessData: BusinessData;
   onBackToEditor: () => void;
+  onBackToDashboard: () => void;
+  onNavigateProfile: () => void;
 }
 
 export const PublishedSiteView: React.FC<PublishedSiteViewProps> = ({
   businessData,
-  onBackToEditor
+  onBackToEditor,
+  onBackToDashboard,
+  onNavigateProfile
 }) => {
   const fullUrl = `https://${businessData.subdomain}.neurozy.site`;
 
@@ -30,28 +34,45 @@ export const PublishedSiteView: React.FC<PublishedSiteViewProps> = ({
   return (
     <div className="min-h-screen bg-white font-sans flex flex-col">
       {/* Top Founder Navigation Pill Banner */}
-      <div className="bg-slate-900 text-white px-4 py-2 flex items-center justify-between text-xs sticky top-0 z-50 border-b border-slate-800 shadow-md">
-        <div className="flex items-center gap-2">
+      <div className="bg-slate-900 text-white px-4 py-2.5 flex items-center justify-between text-xs sticky top-0 z-50 border-b border-slate-800 shadow-md">
+        <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+          <button
+            onClick={onBackToDashboard}
+            className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-white transition flex items-center gap-1 font-bold text-xs"
+          >
+            <LayoutDashboard className="w-3.5 h-3.5 text-indigo-400" />
+            <span>Dashboard</span>
+          </button>
+
+          <button
+            onClick={onNavigateProfile}
+            className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-white transition flex items-center gap-1 font-bold text-xs"
+          >
+            <UserIcon className="w-3.5 h-3.5 text-indigo-400" />
+            <span>Profile</span>
+          </button>
+
           <button
             onClick={onBackToEditor}
-            className="p-1 rounded hover:bg-slate-800 text-slate-300 hover:text-white transition flex items-center gap-1 font-semibold"
+            className="px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white transition flex items-center gap-1 font-bold text-xs"
           >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Back to Editor / Dashboard</span>
+            <Edit3 className="w-3.5 h-3.5" />
+            <span>Edit Website</span>
           </button>
-          <span className="text-slate-600 hidden sm:inline">|</span>
-          <span className="hidden sm:inline text-slate-400">
-            Viewing Live Public Website: <strong className="text-indigo-400 font-mono">{businessData.subdomain}.neurozy.site</strong>
+
+          <span className="text-slate-600 hidden md:inline">|</span>
+          <span className="hidden md:inline text-slate-400">
+            Live URL: <strong className="text-indigo-400 font-mono">{businessData.subdomain}.neurozy.site</strong>
           </span>
         </div>
 
         <div className="flex items-center gap-2">
           <button
             onClick={handleShare}
-            className="px-3 py-1 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-bold flex items-center gap-1.5 transition text-[11px]"
+            className="px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-bold flex items-center gap-1.5 transition text-[11px]"
           >
             <Share2 className="w-3.5 h-3.5" />
-            <span>Share on WhatsApp</span>
+            <span>Share Link</span>
           </button>
         </div>
       </div>

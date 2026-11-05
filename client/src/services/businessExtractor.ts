@@ -375,3 +375,4 @@ export function extractBusinessFromTranscript(rawTranscript: string): BusinessDa
     whatsappClicksCount: 38
   };
 }
+

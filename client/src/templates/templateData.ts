@@ -68,3 +68,4 @@ export const TEMPLATES: WebsiteTemplate[] = [
     features: ['Emergency Call-Now Button', 'Fixed Upfront Pricing', 'Verified Technician Badge', 'Customer Reviews']
   }
 ];
+

@@ -7,16 +7,12 @@ import {
   Check, 
   ArrowRight, 
   RefreshCw, 
-  Store, 
-  Phone, 
-  MapPin, 
-  Clock, 
-  Palette,
+  Volume2, 
   ChevronLeft
 } from 'lucide-react';
 import { useSpeechRecognition } from '../../hooks/useSpeechRecognition';
 import { extractBusinessFromTranscript, SAMPLE_VOICE_PRESETS } from '../../services/businessExtractor';
-import { BusinessData, WebsiteTemplate, TemplateCategory } from '../../types';
+import { BusinessData, TemplateCategory } from '../../types';
 import { TEMPLATES } from '../../templates/templateData';
 
 interface VoiceWebsiteModalProps {
@@ -40,7 +36,7 @@ export const VoiceWebsiteModal: React.FC<VoiceWebsiteModalProps> = ({
     isListening,
     transcript,
     setTranscript,
-    isSupported,
+    audioVolume,
     startListening,
     stopListening,
     resetTranscript,
@@ -52,9 +48,6 @@ export const VoiceWebsiteModal: React.FC<VoiceWebsiteModalProps> = ({
     if (isOpen) {
       setStep(1);
       setGenerationProgress(0);
-      if (!transcript) {
-        // Pre-fill with Hazratganj bakery sample for immediate delight if desired
-      }
     }
   }, [isOpen]);
 
@@ -140,9 +133,12 @@ export const VoiceWebsiteModal: React.FC<VoiceWebsiteModalProps> = ({
           {step === 1 && (
             <div className="space-y-6">
               
-              {/* Language Pills */}
+              {/* Language Pills & Mic Status */}
               <div className="flex items-center justify-between flex-wrap gap-2">
-                <span className="text-xs font-bold text-slate-700">Choose Speaking Language:</span>
+                <div className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-700">
+                  <Volume2 className="w-4 h-4 text-emerald-600" />
+                  <span>Universal Voice Engine:</span>
+                </div>
                 <div className="inline-flex p-1 bg-slate-100 rounded-xl text-xs font-bold">
                   <button
                     onClick={() => setSelectedLanguage('hi-IN')}
@@ -159,7 +155,7 @@ export const VoiceWebsiteModal: React.FC<VoiceWebsiteModalProps> = ({
                 </div>
               </div>
 
-              {/* Pulsing Microphone Button */}
+              {/* Pulsing Microphone Button with Audio Wave */}
               <div className="text-center py-4 flex flex-col items-center">
                 <div className="relative">
                   {isListening && (
@@ -187,31 +183,40 @@ export const VoiceWebsiteModal: React.FC<VoiceWebsiteModalProps> = ({
                   </button>
                 </div>
 
-                {/* Animated Waveform Bars when listening */}
+                {/* Animated Waveform Bars reacting to real audio */}
                 {isListening ? (
-                  <div className="mt-4 flex items-center gap-1 h-8">
-                    {[12, 24, 16, 28, 20, 14, 26, 18, 22].map((height, i) => (
-                      <span
-                        key={i}
-                        className="w-1.5 bg-indigo-600 rounded-full wave-bar"
-                        style={{
-                          height: `${height}px`,
-                          animationDelay: `${i * 0.15}s`
-                        }}
-                      />
-                    ))}
-                    <span className="text-xs font-bold text-indigo-600 ml-2 animate-pulse">
-                      Listening... Bolte rahiye!
+                  <div className="mt-4 flex flex-col items-center gap-2">
+                    <div className="flex items-center gap-1.5 h-10">
+                      {[14, 28, 18, 32, 24, 16, 30, 20, 26, 15, 25].map((baseHeight, i) => {
+                        const dynamicHeight = Math.max(10, Math.round(baseHeight * (0.5 + (audioVolume / 100))));
+                        return (
+                          <span
+                            key={i}
+                            className="w-1.5 bg-gradient-to-t from-indigo-600 to-purple-500 rounded-full transition-all duration-100"
+                            style={{
+                              height: `${dynamicHeight}px`
+                            }}
+                          />
+                        );
+                      })}
+                    </div>
+                    <span className="text-xs font-bold text-indigo-700 animate-pulse bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200">
+                      🎙️ Sun rahe hain... Bolte rahiye! (Listening...)
                     </span>
                   </div>
                 ) : (
-                  <p className="mt-3 text-xs text-slate-500">
-                    Press the microphone and speak naturally in Hindi, Hinglish, or English.
-                  </p>
+                  <div className="mt-3 text-center space-y-1">
+                    <p className="text-xs font-semibold text-slate-700">
+                      Tap the microphone and describe your shop or business naturally.
+                    </p>
+                    <p className="text-[11px] text-slate-400">
+                      Works on all browsers • Hindi, Hinglish, or English
+                    </p>
+                  </div>
                 )}
 
                 {speechError && (
-                  <p className="mt-2 text-xs text-rose-500 font-semibold bg-rose-50 px-3 py-1 rounded-lg">
+                  <p className="mt-2 text-xs text-rose-600 font-semibold bg-rose-50 px-3 py-1.5 rounded-lg border border-rose-200">
                     {speechError}
                   </p>
                 )}
@@ -221,14 +226,23 @@ export const VoiceWebsiteModal: React.FC<VoiceWebsiteModalProps> = ({
               <div className="space-y-2">
                 <div className="flex items-center justify-between text-xs font-semibold text-slate-700">
                   <span>Your Speech Transcript / Business Description:</span>
-                  {transcript && (
+                  <div className="flex items-center gap-2">
                     <button
-                      onClick={resetTranscript}
-                      className="text-slate-400 hover:text-slate-600 flex items-center gap-1"
+                      type="button"
+                      onClick={() => setTranscript('Meri Hazratganj Lucknow mein Sweet Bites naam se bakery hai. Hum chocolate cakes, pastries aur customized birthday cakes banate hain. WhatsApp order available hai 9876543210 par. Timing subah 9 se raat 10 baje tak.')}
+                      className="text-xs font-bold text-indigo-600 hover:text-indigo-800 bg-indigo-50 px-2 py-0.5 rounded-lg border border-indigo-200 transition"
                     >
-                      <RefreshCw className="w-3 h-3" /> Clear
+                      🎙️ Auto-Fill Sample Voice
                     </button>
-                  )}
+                    {transcript && (
+                      <button
+                        onClick={resetTranscript}
+                        className="text-slate-400 hover:text-slate-600 flex items-center gap-1"
+                      >
+                        <RefreshCw className="w-3 h-3" /> Clear
+                      </button>
+                    )}
+                  </div>
                 </div>
                 <textarea
                   value={transcript}
@@ -241,7 +255,7 @@ export const VoiceWebsiteModal: React.FC<VoiceWebsiteModalProps> = ({
 
               {/* Quick Sample Presets */}
               <div className="space-y-2 pt-1">
-                <span className="text-xs font-bold text-slate-500">Or Try a Real Lucknow Business Preset:</span>
+                <span className="text-xs font-bold text-slate-500">Or Pick a Real Lucknow Business Preset:</span>
                 <div className="flex flex-wrap gap-2">
                   {SAMPLE_VOICE_PRESETS.map((preset, index) => (
                     <button

@@ -3,24 +3,24 @@ import {
   Plus, 
   ExternalLink, 
   Edit3, 
-  BarChart3, 
   MessageCircle, 
   Eye, 
-  CheckCircle, 
   Globe, 
   Share2, 
   Sparkles,
   ShoppingBag,
-  ArrowRight
+  User as UserIcon,
+  Settings
 } from 'lucide-react';
-import { BusinessData } from '../../types';
+import { BusinessData, User } from '../../types';
 
 interface DashboardViewProps {
   businessData: BusinessData;
   onOpenEditor: () => void;
   onOpenCreateModal: () => void;
   onViewPublishedSite: () => void;
-  user: any;
+  onNavigateProfile: () => void;
+  user: User | null;
 }
 
 export const DashboardView: React.FC<DashboardViewProps> = ({
@@ -28,6 +28,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onOpenEditor,
   onOpenCreateModal,
   onViewPublishedSite,
+  onNavigateProfile,
   user
 }) => {
   return (
@@ -49,13 +50,23 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             </p>
           </div>
 
-          <button
-            onClick={onOpenCreateModal}
-            className="self-start md:self-auto px-5 py-3 rounded-xl bg-white text-indigo-900 font-bold text-sm shadow-lg hover:bg-indigo-50 transition transform active:scale-95 flex items-center gap-2"
-          >
-            <Plus className="w-4 h-4 text-indigo-600" />
-            <span>Generate New Website (Voice)</span>
-          </button>
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              onClick={onNavigateProfile}
+              className="px-4 py-3 rounded-xl bg-indigo-900/60 hover:bg-indigo-900 text-white border border-indigo-400/30 font-bold text-xs transition flex items-center gap-2 shadow-sm"
+            >
+              <UserIcon className="w-4 h-4 text-indigo-300" />
+              <span>My Profile & Settings</span>
+            </button>
+
+            <button
+              onClick={onOpenCreateModal}
+              className="px-5 py-3 rounded-xl bg-white text-indigo-900 font-bold text-xs shadow-lg hover:bg-indigo-50 transition transform active:scale-95 flex items-center gap-2"
+            >
+              <Plus className="w-4 h-4 text-indigo-600" />
+              <span>Generate New Website (Voice)</span>
+            </button>
+          </div>
         </div>
       </div>
 

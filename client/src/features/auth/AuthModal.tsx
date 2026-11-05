@@ -190,3 +190,4 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     </div>
   );
 };
+

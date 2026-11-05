@@ -15,3 +15,4 @@ public class NeurozyApplication {
         System.out.println("==================================================");
     }
 }
+
