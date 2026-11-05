@@ -171,6 +171,12 @@ export function App() {
         isOpen={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
         onWebsiteGenerated={handleWebsiteGenerated}
+        user={user}
+        onUpdateUserPlan={(plan) => {
+          if (user) {
+            handleUpdateUser({ ...user, planTier: plan });
+          }
+        }}
       />
 
       {/* Auth Modal */}
