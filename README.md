@@ -39,14 +39,16 @@ The production frontend output is generated in `client/dist/`.
 
 ## Deploy to Vercel
 
-The repository is configured to deploy on Vercel when changes are pushed to
-the connected Git branch. `vercel.json` sets the project root build command
-and points Vercel at the client's production output in `client/dist`.
+The repository includes Vercel settings for either supported project root:
+`vercel.json` at the repository root builds the client workspace into
+`client/dist`, while `client/vercel.json` builds the client directly into
+`dist`. Keep the Vercel project's **Root Directory** set to either the
+repository root (`./`) or `client` so Vercel selects the matching settings;
+do not point it at `src` or `server`.
 
-In Vercel, set the project's **Root Directory** to the repository root and use
-the **Production** deployment environment for the `main` branch. Vercel will
-install dependencies with `npm ci`, run the TypeScript check and production
-build, and serve the single-page app with its client-side route fallback.
+Vercel installs dependencies with `npm ci`, runs the TypeScript check and
+production build, and serves the single-page app with its client-side route
+fallback.
 
 Verify the same production build locally with:
 
