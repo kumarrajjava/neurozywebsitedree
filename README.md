@@ -44,10 +44,11 @@ Pages site whenever changes are pushed to `main`. The repository name is used
 as the production asset base path, so bundled scripts, styles, and public
 assets load correctly from the GitHub Pages project URL.
 
-The workflow also enables GitHub Pages for the repository when it runs for
-the first time. After its first successful deployment, open the Pages URL
-shown in the repository's **Settings → Pages** or in the workflow deployment
-summary.
+Before the first deployment, enable Pages in the repository's **Settings →
+Pages** and set **Build and deployment → Source** to **GitHub Actions**. The
+workflow deploys to the configured Pages site on each push to `main`. After a
+successful deployment, open the Pages URL shown in **Settings → Pages** or in
+the workflow deployment summary.
 
 To reproduce the Pages production build locally in PowerShell:
 
