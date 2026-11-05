@@ -1,0 +1,6 @@
+{
+  "name": "Neurozy — Intelligent Web Applications & Browser-Native AI",
+  "description": "Neurozy is dedicated exclusively to web applications. We build in-browser WebGPU runtimes, client neural personas, and zero-latency web AI architectures.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
