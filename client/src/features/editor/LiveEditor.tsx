@@ -109,6 +109,8 @@ export const LiveEditor: React.FC<LiveEditorProps> = ({
         
         {/* Left: Back & Title */}
         <div className="flex items-center gap-3">
+          <img src="/neurozy-logo.png" alt="Neurozy Logo" className="h-7 w-auto object-contain mix-blend-multiply hidden lg:inline-block mr-1" />
+
           <button
             onClick={onBackToDashboard}
             className="p-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 transition flex items-center gap-1.5 text-xs font-bold"

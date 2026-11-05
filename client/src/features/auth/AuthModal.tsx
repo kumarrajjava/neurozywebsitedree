@@ -54,12 +54,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         
         {/* Header */}
         <div className="p-6 pb-4 border-b border-slate-100 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#6366F1] to-[#7C3AED] flex items-center justify-center text-white">
-              <span className="font-extrabold text-sm italic">N</span>
-            </div>
-            <h3 className="font-extrabold text-slate-900 text-base">
-              {isSignUp ? 'Create Neurozy Account' : 'Welcome Back to Neurozy'}
+          <div className="flex items-center gap-3">
+            <img src="/neurozy-logo.png" alt="Neurozy Logo" className="h-8 w-auto object-contain mix-blend-multiply" />
+            <h3 className="font-extrabold text-slate-900 text-sm border-l border-slate-200 pl-2.5">
+              {isSignUp ? 'Create Account' : 'Welcome Back'}
             </h3>
           </div>
           <button 

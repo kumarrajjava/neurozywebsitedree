@@ -13,6 +13,7 @@ import {
   LogOut 
 } from 'lucide-react';
 import { AppViewMode, User } from '../../types';
+import { NeurozyLogo } from '../ui/NeurozyLogo';
 
 interface NavbarProps {
   currentView: AppViewMode;
@@ -58,25 +59,12 @@ export const Navbar: React.FC<NavbarProps> = ({
     <nav className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         
-        {/* Brand Logo matching artwork */}
+        {/* Official Brand Logo */}
         <div 
           onClick={onNavigateHome}
-          className="flex items-center gap-3 cursor-pointer select-none group"
+          className="cursor-pointer group flex items-center"
         >
-          {/* Stylized Violet 'N' Badge */}
-          <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-[#6366F1] via-[#7C3AED] to-[#9333EA] p-[2px] shadow-glow group-hover:scale-105 transition-transform duration-200">
-            <div className="w-full h-full bg-[#1E1B4B] rounded-[14px] flex items-center justify-center">
-              <span className="text-white font-extrabold text-2xl tracking-tighter italic">N</span>
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-2xl font-black text-slate-900 tracking-tight leading-none group-hover:text-indigo-600 transition-colors">
-              Neurozy
-            </span>
-            <span className="text-[11px] font-semibold text-indigo-600 tracking-wider uppercase mt-1">
-              From Idea to Code.
-            </span>
-          </div>
+          <NeurozyLogo size="md" showTagline={true} />
         </div>
 
         {/* Center Nav Links */}

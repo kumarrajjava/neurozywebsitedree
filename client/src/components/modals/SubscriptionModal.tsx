@@ -125,12 +125,10 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
         {/* Header */}
         <div className="p-6 pb-4 border-b border-slate-100 flex items-center justify-between bg-gradient-to-r from-slate-50 via-white to-indigo-50/30">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#6366F1] via-[#7C3AED] to-[#9333EA] text-white flex items-center justify-center shadow-md">
-              <Sparkles className="w-5 h-5" />
-            </div>
-            <div>
-              <h3 className="font-black text-slate-900 text-lg leading-tight">
-                Neurozy Store Subscription Plans
+            <img src="/neurozy-logo.png" alt="Neurozy Logo" className="h-9 w-auto object-contain mix-blend-multiply" />
+            <div className="border-l border-slate-200 pl-3">
+              <h3 className="font-black text-slate-900 text-base leading-tight">
+                Store Subscription Plans
               </h3>
               <p className="text-xs text-slate-500 font-medium">
                 {productContext 
@@ -262,3 +260,4 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
     </div>
   );
 };
+
