@@ -18,6 +18,7 @@ import confetti from 'canvas-confetti';
 import { BusinessData, ViewportMode, ProductItem } from '../../types';
 import { WebsiteViewRenderer } from '../../templates/WebsiteViewRenderer';
 import { TEMPLATES } from '../../templates/templateData';
+import logoSrc from '../../assets/branding/neurozy-logo.png';
 
 interface LiveEditorProps {
   businessData: BusinessData;
@@ -109,7 +110,7 @@ export const LiveEditor: React.FC<LiveEditorProps> = ({
         
         {/* Left: Back & Title */}
         <div className="flex items-center gap-3">
-          <img src="/neurozy-logo.png" alt="Neurozy Logo" className="h-7 w-auto object-contain mix-blend-multiply hidden lg:inline-block mr-1" />
+          <img src={logoSrc} alt="Neurozy Logo" className="h-7 w-auto object-contain mix-blend-multiply hidden lg:inline-block mr-1" />
 
           <button
             onClick={onBackToDashboard}

@@ -1,4 +1,5 @@
 import React from 'react';
+import logoSrc from '../../assets/branding/neurozy-logo.png';
 
 interface NeurozyLogoProps {
   size?: 'sm' | 'md' | 'lg' | 'xl';
@@ -22,7 +23,7 @@ export const NeurozyLogo: React.FC<NeurozyLogoProps> = ({
     <div className={`flex items-center gap-3 select-none ${className}`}>
       {/* Official Neurozy Brand Logo Image (Tightly cropped, prominent & sharp) */}
       <img
-        src="/neurozy-logo.png"
+        src={logoSrc}
         alt="Neurozy Logo"
         className={`${heights[size]} w-auto object-contain mix-blend-multiply transition-transform duration-200 hover:scale-105 drop-shadow-xs`}
       />

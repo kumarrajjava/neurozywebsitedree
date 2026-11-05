@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Lock, Mail, Phone, User as UserIcon, Sparkles } from 'lucide-react';
 import { User } from '../../types';
+import logoSrc from '../../assets/branding/neurozy-logo.png';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -55,7 +56,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         {/* Header */}
         <div className="p-6 pb-4 border-b border-slate-100 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img src="/neurozy-logo.png" alt="Neurozy Logo" className="h-10 w-auto object-contain mix-blend-multiply" />
+            <img src={logoSrc} alt="Neurozy Logo" className="h-10 w-auto object-contain mix-blend-multiply" />
             <h3 className="font-extrabold text-slate-900 text-sm border-l-2 border-slate-200 pl-3">
               {isSignUp ? 'Create Account' : 'Welcome Back'}
             </h3>
@@ -188,4 +189,3 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     </div>
   );
 };
-

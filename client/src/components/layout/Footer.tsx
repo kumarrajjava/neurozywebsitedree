@@ -1,5 +1,6 @@
 import React from 'react';
 import { Heart, Sparkles, MapPin } from 'lucide-react';
+import logoSrc from '../../assets/branding/neurozy-logo.png';
 
 export const Footer: React.FC = () => {
   return (
@@ -19,7 +20,7 @@ export const Footer: React.FC = () => {
           <div className="space-y-4 md:col-span-1">
             <div className="flex items-center gap-3">
               <div className="bg-white p-2 px-4 rounded-2xl shadow-md">
-                <img src="/neurozy-logo.png" alt="Neurozy Logo" className="h-10 w-auto object-contain" />
+                <img src={logoSrc} alt="Neurozy Logo" className="h-10 w-auto object-contain" />
               </div>
               <div>
                 <span className="text-[11px] font-extrabold text-indigo-400 uppercase tracking-widest block">From Idea to Code.</span>
@@ -90,4 +91,3 @@ export const Footer: React.FC = () => {
     </footer>
   );
 };
-

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, Check, Sparkles, ShieldCheck, Zap, ArrowRight, CreditCard, HeartHandshake } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { User } from '../../types';
+import logoSrc from '../../assets/branding/neurozy-logo.png';
 
 interface SubscriptionModalProps {
   isOpen: boolean;
@@ -125,7 +126,7 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
         {/* Header */}
         <div className="p-6 pb-4 border-b border-slate-100 flex items-center justify-between bg-gradient-to-r from-slate-50 via-white to-indigo-50/30">
           <div className="flex items-center gap-3">
-            <img src="/neurozy-logo.png" alt="Neurozy Logo" className="h-11 w-auto object-contain mix-blend-multiply" />
+            <img src={logoSrc} alt="Neurozy Logo" className="h-11 w-auto object-contain mix-blend-multiply" />
             <div className="border-l-2 border-slate-200 pl-3">
               <h3 className="font-black text-slate-900 text-base leading-tight">
                 Store Subscription Plans
@@ -260,4 +261,3 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
     </div>
   );
 };
-

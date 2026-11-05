@@ -36,3 +36,27 @@ npm run build
 ```
 
 The production frontend output is generated in `client/dist/`.
+
+## Deploy to GitHub Pages
+
+The GitHub Actions workflow builds the client and deploys it to the project
+Pages site whenever changes are pushed to `main`. The repository name is used
+as the production asset base path, so bundled scripts, styles, and public
+assets load correctly from the GitHub Pages project URL.
+
+The workflow also enables GitHub Pages for the repository when it runs for
+the first time. After its first successful deployment, open the Pages URL
+shown in the repository's **Settings → Pages** or in the workflow deployment
+summary.
+
+To reproduce the Pages production build locally in PowerShell:
+
+```powershell
+$env:VITE_BASE_PATH = "/neurozywebsitedree/"
+npm run build
+npm run preview
+```
+
+Open `http://localhost:4173/neurozywebsitedree/` to verify the production
+build. Clear the override in the current PowerShell session with
+`Remove-Item Env:VITE_BASE_PATH` when you are done.
