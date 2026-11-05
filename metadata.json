@@ -1,0 +1,6 @@
+{
+  "name": "Neurozy Voice-to-Website",
+  "description": "Speak your business in Hindi, Hinglish, or English and get a fully responsive, customized website generated and published instantly.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
